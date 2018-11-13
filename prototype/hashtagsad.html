@@ -146,6 +146,9 @@
 		<div id="content">
 			<h1>Feed Me Sadness</h1>
 			<p>Feed me your sadness and I will provide you with Art</em>.</p>
+			 <button type="button" class="btn3d btn btn-white btn-lg" onclick="toggleLight(this)" id="on">SAD</button>
+    		<button type="button" class="btn3d btn btn-white btn-lg" onclick="toggleLight(this)" id="off"style='background-color: #ec528d';>NOT SAD</button>
+
 			<div id="controls">
 				<input class="btn" type="button" value="wait, loading video" disabled="disabled" onclick="startVideo()" id="startbutton"></input>
 			</div>			
@@ -364,6 +367,26 @@
 				}, false);
 
 			</script>
+			<!-- Include the latest Ably Library -->
+			<script src="https://cdn.ably.io/lib/ably.min-1.js"></script>
+
+			<script type="text/javascript">
+
+    		var realtime = new Ably.Realtime({ key: 'n9lhCw.VpHOEQ:yarWasjrblXM8ktr' });
+    		var channel = realtime.channels.get("Sandbox");
+    		/* Publish a message when the button is pressed */
+
+		    function toggleLight(elem) {
+		        var state;
+		        if(elem.id==="on")
+		            state="on";
+		        else if(elem.id==="off")
+		            state="off";
+
+		        channel.publish("update", { "lightstate": state });
+		    }
+
+</script>
 		</div>
 	</body>
 </html>
